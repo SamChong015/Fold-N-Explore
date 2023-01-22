@@ -19,6 +19,7 @@ The define statements for the LED's also came from this source.
 
 #define IR_RECEIVE_PIN 3
 
+//Defines to set the IR Receiver Values
 #define ON_OFF 69
 #define LEFT 68
 #define RIGHT 67
@@ -36,6 +37,7 @@ The define statements for the LED's also came from this source.
 #define CASE_8 82
 #define CASE_9 74
 
+//Defmines to set the LED pins (both RED and BLUE)
 #define RED_1 22
 #define RED_2 23
 #define RED_3 24
@@ -69,6 +71,7 @@ const int echoPin = 10;
 long duration;
 int distance;
 
+//Function to turn all the LED's On
 void LED_ALL_ON()
 {
   digitalWrite(RED_1, HIGH);
@@ -83,6 +86,7 @@ void LED_ALL_ON()
   digitalWrite(BLUE_5, HIGH);
 }
 
+//Function to turn all Red LED's On
 void LED_RED_ON()
 {
   digitalWrite(RED_1, HIGH);
@@ -92,6 +96,7 @@ void LED_RED_ON()
   digitalWrite(RED_5, HIGH);
 }
 
+//Function to turn all Blue LED's On
 void LED_BLUE_ON()
 {
   digitalWrite(BLUE_1, HIGH);
@@ -101,6 +106,7 @@ void LED_BLUE_ON()
   digitalWrite(BLUE_5, HIGH);
 }
 
+//Function to turn all LED's Off
 void LED_ALL_OFF()
 {
   digitalWrite(RED_1, LOW);
@@ -115,6 +121,7 @@ void LED_ALL_OFF()
   digitalWrite(BLUE_5, LOW);
 }
 
+//Function to blink the RED LED's
 void LED_BLINK_RED()
 {
   digitalWrite(RED_1, HIGH);
@@ -130,6 +137,7 @@ void LED_BLINK_RED()
   digitalWrite(RED_5, LOW);
 }
 
+//Function to blink the BLUE LED's
 void LED_BLINK_BLUE()
 {
   digitalWrite(BLUE_1, HIGH);
@@ -145,6 +153,7 @@ void LED_BLINK_BLUE()
   digitalWrite(BLUE_5, LOW);
 }
 
+//Function to make a wave with RED LED's
 void LED_WAVE_RED()
 {
   digitalWrite(RED_1, HIGH);
@@ -162,6 +171,7 @@ void LED_WAVE_RED()
   digitalWrite(RED_5, HIGH);
 }
 
+//Function to make a wave with BLUE LED's
 void LED_WAVE_BLUE()
 {
   digitalWrite(BLUE_1, HIGH);
@@ -179,6 +189,7 @@ void LED_WAVE_BLUE()
   digitalWrite(BLUE_5, HIGH);
 }
 
+//Function to move Forward
 void forward()
 {
   for (int i=0; i < stepsPerLoop; i++)
@@ -188,6 +199,7 @@ void forward()
   }
 }
 
+//Function to move LEFT
 void left()
 {
   for (int i=0; i < stepsPerLoop; i++)
@@ -199,6 +211,7 @@ void left()
   }
 }
 
+//Function to move RIGHT
 void right()
 {
   for (int i=0; i < stepsPerLoop; i++)
@@ -210,6 +223,7 @@ void right()
   }
 }
 
+//Function to move BACK
 void back()
 {
   for (int i=0; i < stepsPerLoop; i++)
@@ -219,19 +233,21 @@ void back()
   }
 }
 
+
 void setup() 
 {
-  rightMotor.setSpeed(60);
+
+  rightMotor.setSpeed(60); //Set stepper motor speeds
   leftMotor.setSpeed(60);
 
-  servo.attach(8);
+  servo.attach(8); //Initilize servo
 
   pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
   pinMode(echoPin, INPUT); // Sets the echoPin as an Input
 
   Serial.begin(9600);
 
-  IrReceiver.begin(IR_RECEIVE_PIN);
+  IrReceiver.begin(IR_RECEIVE_PIN); //Begin IR Receiver
 
   delay(2000);
 
@@ -261,7 +277,7 @@ void loop() {
     command = IrReceiver.decodedIRData.command;
     Serial.print(command);
     switch (command) {
-    //Robotics Back-End Code Ends
+    //Robotics Back-End Code Ends (They used switch cases but I changed the contents of them)
       case LEFT:
       {
         response = 'a';
@@ -295,7 +311,7 @@ void loop() {
       case ON_OFF:
       {
         LED_ALL_OFF();
-        LED_TYPE = -1;
+        LED_TYPE = -1; //To turn the LED's off
         break;
       }
 
@@ -353,6 +369,7 @@ void loop() {
   else if (response == 'd' || response == 'D')
   { right(); }
 
+  //Sets LED pattern based on IR Input
   if (LED_TYPE == 0)
   { LED_ALL_ON(); }
   else if (LED_TYPE == 1)
